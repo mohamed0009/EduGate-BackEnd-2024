@@ -1,5 +1,7 @@
 package BackEnd.EduGate;
 
+import java.util.List;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +14,7 @@ public class EduGateApplication {
 		SpringApplication.run(EduGateApplication.class, args);
 	}
 	@GetMapping
-    public String hello(){
-		return "hello from EduGate";
+    public List<String> hello(){
+		return List.of("hello","EduGate");
 	}
 }
