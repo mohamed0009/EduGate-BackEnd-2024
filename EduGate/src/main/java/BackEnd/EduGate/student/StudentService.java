@@ -1,10 +1,13 @@
 package BackEnd.EduGate.student;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class StudentService {
@@ -35,5 +38,26 @@ public class StudentService {
 		} else {
 			throw new IllegalStateException("Student with id " + studentId + " not found ");
 		}
+	}
+
+	@Transactional
+	public void updateStudent(Long studentId, String name, String email) {
+		Student student = studentRepository.findById(studentId).orElseThrow(
+				() -> new IllegalStateException(
+						"Student with id " + studentId + " not found "));
+
+		;
+		if (name != null && email.length() > 0 && !Objects.equals(student.getName(), name)) {
+			student.setName(name);
+		}
+		if (email != null && email.length() > 0 && !Objects.equals(student.getEmail(), email)) {
+			Optional<Student> studentByEmail = studentRepository.findStudentByEmail(email);
+			if (studentByEmail.isPresent()) {
+				throw new IllegalStateException("Email already taken");
+			}
+			student.setEmail(email);
+
+		}
+
 	}
 }
