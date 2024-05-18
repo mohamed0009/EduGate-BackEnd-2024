@@ -4,56 +4,48 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
+import jakarta.persistence.Column;
 
 @Entity
-@Table
 public class Admin {
     @Id
-    @SequenceGenerator(name = "admin_sequence", sequenceName = "admin_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "admin_sequence")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_admin")
     private Long id;
-    private String name;
-    private String email;
 
-    @Override
-    public String toString() {
-        return "Admin [id=" + id + ", name=" + name + ", email=" + email + "]";
+    @Column(name = "role")
+    private String role;
+
+    public Admin() {
     }
 
-    public Admin(Long id, String name, String email) {
+    public Admin(Long id, String role) {
         this.id = id;
-        this.name = name;
-        this.email = email;
+        this.role = role;
     }
 
-    public Admin(String name, String email) {
-        this.name = name;
-        this.email = email;
+    public Admin(String role) {
+        this.role = role;
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getRole() {
+        return role;
     }
 
-    public String getEmail() {
-        return email;
+    public void setRole(String role) {
+        this.role = role;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    @Override
+    public String toString() {
+        return "Admin [id=" + id + ", role=" + role + "]";
     }
-
-    public Admin() {
-    }
-
 }

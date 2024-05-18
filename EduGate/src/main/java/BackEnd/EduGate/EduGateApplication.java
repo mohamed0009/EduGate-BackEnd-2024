@@ -10,4 +10,3 @@ public class EduGateApplication {
 		SpringApplication.run(EduGateApplication.class, args);
 	}
 }
-	
