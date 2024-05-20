@@ -1,4 +1,4 @@
-package BackEnd.EduGate.admin;
+package BackEnd.EduGate.admins;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

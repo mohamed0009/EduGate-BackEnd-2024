@@ -1,4 +1,4 @@
-package BackEnd.EduGate.admin;
+package BackEnd.EduGate.admins;
 
 import java.util.Optional;
 

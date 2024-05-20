@@ -1,4 +1,4 @@
-package BackEnd.EduGate.admin;
+package BackEnd.EduGate.admins;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
