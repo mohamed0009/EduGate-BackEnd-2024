@@ -1,14 +1,7 @@
 package BackEnd.EduGate.students;
 
 import BackEnd.EduGate.classes.Classe;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "eleve")
@@ -19,7 +12,7 @@ public class Student {
     @Column(name = "id_eleve")
     private Long idEleve;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "classe_id", referencedColumnName = "id_classe")
     private Classe classe;
 
