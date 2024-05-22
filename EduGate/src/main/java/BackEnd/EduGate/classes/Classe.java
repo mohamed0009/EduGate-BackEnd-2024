@@ -19,8 +19,6 @@ public class Classe {
     @Column(name = "niveau")
     private String niveau;
 
-    // Constructors, getters, setters, and toString() methods
-
     public Classe() {
     }
 
