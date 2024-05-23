@@ -3,8 +3,11 @@ package BackEnd.EduGate.students;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import BackEnd.EduGate.classes.Classe;
+import BackEnd.EduGate.classes.ClasseDTO;
+
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
@@ -16,35 +19,31 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-    public List<Student> getStudents() {
-        return studentRepository.findAll();
+    public List<StudentDTO> getStudents() {
+        return studentRepository.findAll().stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
     public void addNewStudent(Student student) {
-        boolean studentById = studentRepository.existsById(student.getIdEleve());
-        if (studentById) {
-            throw new IllegalStateException("Eleve already exists");
-        }
         studentRepository.save(student);
     }
 
     public void deleteStudent(Long studentId) {
         boolean exists = studentRepository.existsById(studentId);
-        if (exists) {
-            studentRepository.deleteById(studentId);
-        } else {
-            throw new IllegalStateException("Eleve with id " + studentId + " not found ");
+        if (!exists) {
+            throw new IllegalStateException("Student with id " + studentId + " does not exist.");
         }
+        studentRepository.deleteById(studentId);
     }
 
-    public void updateStudent(Long studentId, Student updatedStudent) {
-        Optional<Student> studentOptional = studentRepository.findById(studentId);
-        if (studentOptional.isPresent()) {
-            Student student = studentOptional.get();
-            student.setClasse(updatedStudent.getClasse());
-            studentRepository.save(student);
-        } else {
-            throw new IllegalStateException("Eleve with id " + studentId + " not found ");
-        }
+    private StudentDTO convertToDTO(Student student) {
+        Classe classe = student.getClasse();
+        ClasseDTO classeDTO = new ClasseDTO(
+                classe.getIdClasse(),
+                classe.getNomClasse(),
+                classe.getNiveau());
+
+        return new StudentDTO(student.getIdEleve(), classeDTO);
     }
 }
